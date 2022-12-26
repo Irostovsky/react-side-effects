@@ -38,14 +38,19 @@ const Login = (props) => {
     isValid: false,
   });
 
+  const { isValid: emailIsValid } = emailState;
+  const { isValid: passwordIsValid } = passwordState;
+
   useEffect(() => {
+    console.log("Checking for validity!!!");
     const identifier = setTimeout(() => {
-      setFormIsValid(emailState.isValid && passwordState.isValid);
+      setFormIsValid(emailIsValid && passwordIsValid);
     }, 500);
     return () => {
+      console.log("CLEANUP");
       clearTimeout(identifier);
     };
-  }, [emailState, passwordState]);
+  }, [emailIsValid, passwordIsValid]);
 
   const emailChangeHandler = (event) => {
     emailDispatch({ type: "USER_INPUT", value: event.target.value });
@@ -73,7 +78,7 @@ const Login = (props) => {
       <form onSubmit={submitHandler}>
         <div
           className={`${classes.control} ${
-            emailState.isValid ? "" : classes.invalid
+            emailIsValid ? "" : classes.invalid
           }`}
         >
           <label htmlFor="email">E-Mail</label>
@@ -87,7 +92,7 @@ const Login = (props) => {
         </div>
         <div
           className={`${classes.control} ${
-            passwordState.isValid ? "" : classes.invalid
+            passwordIsValid ? "" : classes.invalid
           }`}
         >
           <label htmlFor="password">Password</label>
