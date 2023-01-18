@@ -55,6 +55,7 @@ const Login = () => {
   useEffect(() => {
     console.log("Checking for validity!!!");
     const identifier = setTimeout(() => {
+      console.log("calling setFormIsValid");
       setFormIsValid(emailIsValid && passwordIsValid);
     }, 500);
     return () => {
